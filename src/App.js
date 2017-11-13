@@ -7,6 +7,10 @@ const ADD = 1;
 const SUB = 2;
 const MULT = 3;
 const DIV = 4;
+const SIN = 5;
+const COS = 6;
+const TAN = 7;
+const POW = 8;
 
 //the four basic functions (/*+-) all require two inputs. These variables keep track of those inputs
 var num1 = 0;
@@ -37,6 +41,11 @@ class App extends Component {
             mathFunction={(e) => this.setCalculationType(e)}
             type={MULT}
           />
+          <MathButton
+            value="Sin()"
+            mathFunction={(e) => this.singleVariableCalcs(e)}
+            type={SIN}
+          />
         </div>
         <div className="row">
           {this.renderButton("4")}
@@ -47,6 +56,11 @@ class App extends Component {
             mathFunction={(e) => this.setCalculationType(e)}
             type={DIV}
           />
+          <MathButton
+            value="Cos()"
+            mathFunction={(e) => this.singleVariableCalcs(e)}
+            type={COS}
+          />
         </div>
         <div className="row">
           {this.renderButton("1")}
@@ -56,6 +70,11 @@ class App extends Component {
             value="-"
             mathFunction={(e) => this.setCalculationType(e)}
             type={SUB}
+          />
+          <MathButton
+            value="Tan()"
+            mathFunction={(e) => this.singleVariableCalcs(e)}
+            type={TAN}
           />
         </div>
         <div className="row">
@@ -72,6 +91,11 @@ class App extends Component {
             value="+"
             mathFunction={(e) => this.setCalculationType(e)}
             type={ADD}
+          />
+          <MathButton
+            value="^"
+            mathFunction={(e) => this.setCalculationType(e)}
+            type={POW}
           />
         </div>
       </div>
@@ -133,6 +157,23 @@ class App extends Component {
           num2 = 0;
           numOneVisible = true;
         }
+      } else if(calculationType == POW) {
+        num1 = Math.pow(num1, num2);
+        num2 = 0;
+        numOneVisible = true;
+      }
+      this.forceUpdate();
+    }
+  }
+
+  singleVariableCalcs(type) {
+    if(calculationType == 0 && numOneVisible) {
+      if(type == SIN) {
+        num1 = Math.sin(num1);
+      } else if(type == COS) {
+        num1 = Math.cos(num1);
+      } else if(type == TAN) {
+        num1 = Math.tan(num1);
       }
       this.forceUpdate();
     }
